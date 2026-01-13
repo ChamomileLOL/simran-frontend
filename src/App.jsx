@@ -14,18 +14,26 @@ function App() {
       const response = await fetch(`${API_URL}/delete-simran`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'text/plain', // Sending Raw Text
+          'Content-Type': 'application/json', // ✅ CHANGED: Now telling the server it is JSON
         },
-        body: targetId // Sending the ID directly
+        body: JSON.stringify({ id: targetId }) // ✅ CHANGED: Wrapping the ID in an object
       });
       
-      const text = await response.text();
-      setMessage(text);
+      // We expect JSON back from the server now, not text
+      const data = await response.json(); 
+      
+      if (response.ok) {
+        setMessage(data.message); // Success message from backend
+      } else {
+        setMessage(data.message || "Error: The Void refused."); // Error message from backend
+      }
+      
     } catch (error) {
+      console.error(error);
       setMessage("Error: The Void is Unreachable.");
     }
   }
-
+  
   return (
     <div style={{ padding: '50px', textAlign: 'center', background: '#000', color: '#fff', height: '100vh' }}>
       <h1>PROJECT SIMRANLESS</h1>
