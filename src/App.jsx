@@ -7,7 +7,7 @@ function App() {
 
   // THE API URL (Replace with your RENDER URL after you deploy backend)
   // For now, use localhost if testing locally, or the Render link
-  const API_URL = "https://simran-api.onrender.com"; 
+  const API_URL = "https://simran-backend.onrender.com"; 
 
   const handleDelete = async () => {
     try {
